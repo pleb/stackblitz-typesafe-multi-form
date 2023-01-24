@@ -15,6 +15,7 @@ import { TodoItem } from '~/components/organisms/TodoItem'
 import { Panel } from '~/components/atoms/Panel'
 import { UpsertTodo } from '~/components/organisms/UpsertTodo'
 import { useLoadingContext } from '~/contexts/loadingContext'
+import Loading from 'icon/LoadingIndicator'
 
 const validator = withZod(
   z.discriminatedUnion('_action', [
@@ -100,8 +101,12 @@ export default function Index() {
           Reset
         </GlassButton>
       </ValidatedForm>
-      <GlassPanel>
+      <GlassPanel className='relative'>
         <Title>Simple Todo</Title>
+        <Loading
+          class='absolute right-2 top-5 animate-spin h-5 w-5 mr-3'
+          hidden={!loadingContext.isLoading}
+        />
         <Panel className='mt-2 px-4'>
           {todos.map((td, i) => (
             <TodoItem
