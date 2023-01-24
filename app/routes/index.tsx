@@ -7,7 +7,7 @@ import { withZod } from '@remix-validated-form/with-zod'
 import { dispatch, DispatchActionsLookup } from '~/utilities/dispatcher'
 import { ValidatedForm } from 'remix-validated-form'
 import { useCallback, useState } from 'react'
-import { delay, randomNumberBetween } from '~/utilities/delay'
+import { randomDelayBetween } from '~/utilities/delay'
 import { GlassButton } from '~/components/molecules/GlassButton'
 import { Title } from '~/components/atoms/Title'
 import { GlassPanel } from '~/components/molecules/GlassPanel'
@@ -57,7 +57,7 @@ export const loader = async ({ request }: DataFunctionArgs) => {
 
 export const action = async (data: DataFunctionArgs) => {
   // Simulate network latency
-  await delay(randomNumberBetween(250, 2000))
+  await randomDelayBetween(250, 1000)
 
   return await dispatch(data, validator, {
     reset: async _ => {
@@ -104,7 +104,7 @@ export default function Index() {
       <GlassPanel className='relative'>
         <Title>Simple Todo</Title>
         <Loading
-          class='absolute right-2 top-5 animate-spin h-5 w-5 mr-3'
+          className='absolute right-2 top-5 animate-spin h-5 w-5 mr-3'
           hidden={!loadingContext.isLoading}
         />
         <Panel className='mt-2 px-4'>

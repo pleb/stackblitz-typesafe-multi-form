@@ -34,9 +34,17 @@ export const TodoItem = <
   disabled?: boolean
 }) => {
   return (
-    <ValidatedForm validator={validator} method='post' resetAfterSubmit={true}>
+    <ValidatedForm
+      validator={validator}
+      name={`todo-row-${todo.id}`}
+      method='post'
+      resetAfterSubmit={true}
+    >
       <ValidatedHiddenInput name='id' value={todo.id.toString()} />
-      <Panel border='b' className={cn('py-3', 'grid grid-flow-col')}>
+      <Panel
+        border='b'
+        className={cn('p-3', 'hover:bg-glass/20', 'grid grid-flow-col')}
+      >
         <div>{todo.description}</div>
         {!disableActions && (
           <div className='w-30 justify-self-end grid gap-2 grid-flow-col content-center'>

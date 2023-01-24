@@ -1,7 +1,8 @@
-import * as React from 'react'
-import { SVGProps } from 'react'
+import { SVGProps, HTMLAttributes } from 'react'
 
-const SvgIconLoadingIndicator = (props: SVGProps<SVGSVGElement>) => (
+const SvgIconLoadingIndicator = (
+  props: SVGProps<SVGSVGElement> & HTMLAttributes<SVGAElement>,
+) => (
   <svg
     viewBox='0 0 24 24'
     fill='none'
