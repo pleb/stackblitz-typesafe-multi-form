@@ -1,0 +1,49 @@
+import { ValidatedForm, Validator } from 'remix-validated-form'
+import {
+  ValidatedHiddenInput,
+  ValidatedTextInput,
+} from '~/components/atoms/ValidatedInput'
+import { Button } from '../atoms/Button'
+
+export const UpsertTodo = <
+  T extends {
+    description: string
+    id: number | string
+  },
+  TValidator extends Validator<unknown>,
+>({
+  todo,
+  dispatchActions,
+  validator,
+  onSubmit
+}: {
+  todo?: T
+  dispatchActions: {
+    upsert: string
+  }
+  validator: TValidator
+  onSubmit: () => void
+}) => {
+  return (
+    <ValidatedForm validator={validator} onSubmit={() => onSubmit?.()} resetAfterSubmit={true} method='post'>
+      <ValidatedHiddenInput name='id' value={todo?.id.toString()} />
+      <div className='mt-2 py-3 px-4 grid grid-flow-col gap-2 items-start'>
+        <ValidatedTextInput
+          className='p-2 border'
+          label='Todo description'
+          placeholder='Todo description'
+          name='description'
+          value={todo?.description}
+        />
+        <Button
+          className='text-black'
+          type='submit'
+          name='_action'
+          value={dispatchActions.upsert}
+        >
+          {todo ? 'Edit' : 'Add'}
+        </Button>
+      </div>
+    </ValidatedForm>
+  )
+}
