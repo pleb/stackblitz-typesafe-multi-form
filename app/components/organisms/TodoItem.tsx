@@ -21,6 +21,7 @@ export const TodoItem = <
   disableActions,
   dispatchActions,
   validator,
+  disabled,
 }: {
   todo: T
   onEdit: (todo: T) => void
@@ -30,6 +31,7 @@ export const TodoItem = <
     complete: string
   }
   validator: TValidator
+  disabled?: boolean
 }) => {
   return (
     <ValidatedForm validator={validator} method='post' resetAfterSubmit={true}>
@@ -43,10 +45,15 @@ export const TodoItem = <
               type='submit'
               name='_action'
               value={dispatchActions.delete}
+              disabled={disabled}
             >
               <Delete />
             </IconButton>
-            <IconButton color='Green' onClick={() => onEdit(todo)}>
+            <IconButton
+              color='Green'
+              onClick={() => onEdit(todo)}
+              disabled={disabled}
+            >
               <Edit />
             </IconButton>
             <ValidatedCheckboxInput
@@ -55,6 +62,7 @@ export const TodoItem = <
               label='Complete todo'
               value={dispatchActions.complete}
               submitOnChange={true}
+              disabled={disabled}
             />
           </div>
         )}
