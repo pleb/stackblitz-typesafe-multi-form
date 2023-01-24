@@ -4,7 +4,7 @@ import {
   ValidatedCheckboxInput,
   ValidatedHiddenInput,
 } from '~/components/atoms/ValidatedInput'
-import { GlassButton } from '../molecules/GlassButton'
+import { IconButton } from '../molecules/IconButton'
 import Delete from 'icon/Delete'
 import Edit from 'icon/Edit'
 import { cn } from '~/utilities/cn'
@@ -38,22 +38,17 @@ export const TodoItem = <
         <div>{todo.description}</div>
         {!disableActions && (
           <div className='w-30 justify-self-end grid gap-2 grid-flow-col content-center'>
-            <GlassButton
-              backgroundClass='[&]:bg-red-700 [&]:hover:bg-red-500 [&]:active:bg-red-300'
-              className='py-1 px-2 '
+            <IconButton
+              color='Red'
               type='submit'
               name='_action'
               value={dispatchActions.delete}
             >
               <Delete />
-            </GlassButton>
-            <GlassButton
-              backgroundClass='[&]:bg-green-700 [&]:hover:bg-green-500 [&]:active:bg-green-300'
-              className='py-1 px-2 '
-              onClick={() => onEdit(todo)}
-            >
+            </IconButton>
+            <IconButton color='Green' onClick={() => onEdit(todo)}>
               <Edit />
-            </GlassButton>
+            </IconButton>
             <ValidatedCheckboxInput
               className='ml-2'
               name='_action'
