@@ -30,7 +30,7 @@ type ValidatedInput = {
   className?: string
   type: React.HTMLInputTypeAttribute
   submitOnChange?: boolean
-} & Pick<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'>
+} & Pick<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'disabled'>
 
 function ValidatedInput({
   name,
@@ -41,6 +41,7 @@ function ValidatedInput({
   type,
   onChange,
   submitOnChange,
+  ...props
 }: ValidatedInput) {
   const { error, getInputProps } = useField(name)
   const { submit, fieldErrors, isValid } = useFormContext()
@@ -51,6 +52,7 @@ function ValidatedInput({
   if (type === 'hidden') {
     return (
       <input
+        {...props}
         {...getInputProps({
           type: 'hidden',
           value: value ?? defaultValue ?? '',
@@ -68,14 +70,10 @@ function ValidatedInput({
     return (
       <div>
         <input
-          className={cn(
-            'w-full',
-            'text-black',
-            className,
-            //error && 'border-b-error border-b-2',
-          )}
+          className={cn('w-full', 'rounded-md', 'text-black', className)}
           placeholder={placeholder}
           type={type}
+          {...props}
           {...getInputProps({
             type,
             value: value ?? defaultValue ?? '',
@@ -88,7 +86,11 @@ function ValidatedInput({
           aria-label={label}
         />
         {error && (
-          <div className={'p-1 bg-error text-sm rounded-b'}>{error}</div>
+          <div
+            className={cn('px-3 pt-3 pb-2 -mt-1', 'bg-error text-sm rounded-b')}
+          >
+            {error}
+          </div>
         )}
       </div>
     )
@@ -99,6 +101,7 @@ function ValidatedInput({
       <input
         className={cn(className, error && 'border-raspberry')}
         type={type}
+        {...props}
         {...getInputProps({
           type,
           value: value ?? defaultValue ?? 'on',

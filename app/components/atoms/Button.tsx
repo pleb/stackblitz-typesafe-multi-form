@@ -12,8 +12,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       className={cn(
         'p-2',
         'border border-slate-300 bg-slate-400 rounded-md',
-        'hover:bg-slate-200 active:bg-slate-50',
-        
+        '[&:not(:disabled)]:hover:bg-slate-200 [&:not(:disabled)]:active:bg-slate-50',
         className,
       )}
       {...props}

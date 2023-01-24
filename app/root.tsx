@@ -5,8 +5,10 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useTransition,
 } from '@remix-run/react'
 import type { MetaFunction } from '@remix-run/node'
+import { LoadingContext } from '~/contexts/loadingContext'
 
 import styles from './styles/app.css'
 
@@ -19,6 +21,7 @@ export const meta: MetaFunction = () => {
 }
 
 export default function App() {
+  const transition = useTransition()
   return (
     <html lang='en'>
       <head>
@@ -28,7 +31,11 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Outlet />
+        <LoadingContext.Provider
+          value={{ isLoading: transition.state !== 'idle' }}
+        >
+          <Outlet />
+        </LoadingContext.Provider>
         <ScrollRestoration />
         <Scripts />
         {process.env.NODE_ENV === 'development' && <LiveReload />}

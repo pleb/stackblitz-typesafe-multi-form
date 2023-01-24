@@ -29,13 +29,3 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
   ),
 )
 IconButton.displayName = 'IconButton'
-
-/*
-            <GlassButton
-              backgroundClass='[&]:bg-green-700 [&]:hover:bg-green-500 [&]:active:bg-green-300'
-              className='py-1 px-2 '
-              onClick={() => onEdit(todo)}
-            >
-              <Edit />
-            </GlassButton>
-            */

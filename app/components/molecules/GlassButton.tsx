@@ -13,7 +13,7 @@ export const GlassButton = forwardRef<HTMLButtonElement, GlassButtonProps>(
       className={cn(
         'border border-glass-1',
         !backgroundClass &&
-          '[&]:bg-slate-300 [&]:hover:bg-slate-200 [&]:active:bg-slate-100',
+          '[&]:bg-slate-300 [&:not(:disabled)]:hover:bg-slate-200 [&:not(:disabled)]:active:bg-slate-100',
         backgroundClass,
         className,
       )}

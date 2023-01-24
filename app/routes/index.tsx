@@ -14,6 +14,7 @@ import { GlassPanel } from '~/components/molecules/GlassPanel'
 import { TodoItem } from '~/components/organisms/TodoItem'
 import { Panel } from '~/components/atoms/Panel'
 import { UpsertTodo } from '~/components/organisms/UpsertTodo'
+import { useLoadingContext } from '~/contexts/loadingContext'
 
 const validator = withZod(
   z.discriminatedUnion('_action', [
@@ -83,6 +84,7 @@ export default function Index() {
   const todos = useLoaderData<typeof loader>()
   const [edit, setEdit] = useState<Todo>()
   const clearEdit = useCallback(() => setEdit(undefined), [setEdit])
+  const loadingContext = useLoadingContext()
 
   return (
     <div>
@@ -93,6 +95,7 @@ export default function Index() {
           value={dispatchActions.reset}
           className='place-self-end py-1 px-4'
           onClick={clearEdit}
+          disabled={loadingContext.isLoading}
         >
           Reset
         </GlassButton>
@@ -108,6 +111,7 @@ export default function Index() {
               validator={validator}
               disableActions={Boolean(edit)}
               dispatchActions={dispatchActions}
+              disabled={loadingContext.isLoading}
             />
           ))}
         </Panel>
@@ -118,6 +122,7 @@ export default function Index() {
           onSubmit={() => {
             setTimeout(clearEdit)
           }}
+          disabled={loadingContext.isLoading}
         />
       </GlassPanel>
     </div>

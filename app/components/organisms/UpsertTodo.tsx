@@ -15,7 +15,8 @@ export const UpsertTodo = <
   todo,
   dispatchActions,
   validator,
-  onSubmit
+  onSubmit,
+  disabled,
 }: {
   todo?: T
   dispatchActions: {
@@ -23,9 +24,15 @@ export const UpsertTodo = <
   }
   validator: TValidator
   onSubmit: () => void
+  disabled?: boolean
 }) => {
   return (
-    <ValidatedForm validator={validator} onSubmit={() => onSubmit?.()} resetAfterSubmit={true} method='post'>
+    <ValidatedForm
+      validator={validator}
+      onSubmit={() => onSubmit?.()}
+      resetAfterSubmit={true}
+      method='post'
+    >
       <ValidatedHiddenInput name='id' value={todo?.id.toString()} />
       <div className='mt-2 py-3 px-4 grid grid-flow-col gap-2 items-start'>
         <ValidatedTextInput
@@ -34,12 +41,14 @@ export const UpsertTodo = <
           placeholder='Todo description'
           name='description'
           value={todo?.description}
+          disabled={disabled}
         />
         <Button
           className='text-black'
           type='submit'
           name='_action'
           value={dispatchActions.upsert}
+          disabled={disabled}
         >
           {todo ? 'Edit' : 'Add'}
         </Button>
