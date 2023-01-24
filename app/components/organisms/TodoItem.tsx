@@ -4,7 +4,7 @@ import {
   ValidatedCheckboxInput,
   ValidatedHiddenInput,
 } from '~/components/atoms/ValidatedInput'
-import { IconButton } from '../molecules/IconButton'
+import { IconButton } from '~/components/molecules/IconButton'
 import Delete from 'icon/Delete'
 import Edit from 'icon/Edit'
 import { cn } from '~/utilities/cn'
@@ -45,10 +45,16 @@ export const TodoItem = <
         border='b'
         className={cn('p-3', 'hover:bg-glass/20', 'grid grid-flow-col')}
       >
-        <div aria-label={`To-do entry ${todo.description}`}>{todo.description}</div>
+        <div
+          aria-label={`To-do entry ${todo.description}`}
+          aria-flowto={`delete-${todo.id}`}
+        >
+          {todo.description}
+        </div>
         {!disableActions && (
           <div className='w-30 justify-self-end grid gap-2 grid-flow-col content-center'>
             <IconButton
+              id={`delete-${todo.id}`}
               color='Red'
               type='submit'
               name='_action'

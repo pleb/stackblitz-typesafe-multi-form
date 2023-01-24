@@ -17,7 +17,11 @@ export function links() {
 }
 
 export const meta: MetaFunction = () => {
-  return { title: 'New Remix App' }
+  return {
+    title: 'Simple to-do tracking application',
+    description:
+      'Simple to-do application is a collection of to-do entries that can be completed, edited or deleted',
+  }
 }
 
 export default function App() {

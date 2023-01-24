@@ -51,7 +51,7 @@ const dispatchActions: DispatchActionsLookup<typeof validator> = {
   complete: 'complete',
 }
 
-export const loader = async ({ request }: DataFunctionArgs) => {
+export const loader = async () => {
   return db.load().filter(i => !i.completed && !i.deleted)
 }
 
@@ -88,7 +88,11 @@ export default function Index() {
   const loadingContext = useLoadingContext()
 
   return (
-    <div className={'sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg mx-[auto]'}>
+    <div
+      className={
+        'sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg mx-[auto]'
+      }
+    >
       <ValidatedForm validator={validator} method='post' className='grid mb-2'>
         <GlassButton
           type='submit'

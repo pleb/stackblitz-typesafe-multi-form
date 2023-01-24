@@ -2,7 +2,9 @@ import type { DataFunctionArgs } from '@remix-run/node'
 import type { SuccessResult, Validator } from 'remix-validated-form'
 import { validationError } from 'remix-validated-form'
 
-type CoerceIntellisense<T> = T extends infer O ? { [K in keyof O]: O[K] } : never
+type CoerceIntellisense<T> = T extends infer O
+  ? { [K in keyof O]: O[K] }
+  : never
 
 type TypeWithGeneric<T> = T[]
 
@@ -16,7 +18,9 @@ type ExtractZodUnion<T extends ZodActionType> = Extract<
 >['data']
 
 type DispatchActions<T extends { _action: string }> = {
-  [P in T['_action']]: (data: CoerceIntellisense<Extract<T, { _action: P }>>) => Promise<unknown>
+  [P in T['_action']]: (
+    data: CoerceIntellisense<Extract<T, { _action: P }>>,
+  ) => Promise<unknown>
 }
 
 export type DispatchActionsLookup<T extends ZodActionType> = {

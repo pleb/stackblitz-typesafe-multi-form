@@ -1,6 +1,8 @@
-import { SVGProps } from 'react'
+import { SVGProps, HTMLAttributes } from 'react'
 
-const SvgIconTrash = (props: SVGProps<SVGSVGElement>) => (
+const SvgIconTrash = (
+  props: SVGProps<SVGSVGElement> & HTMLAttributes<SVGAElement>,
+) => (
   <svg
     width='1em'
     height='1em'

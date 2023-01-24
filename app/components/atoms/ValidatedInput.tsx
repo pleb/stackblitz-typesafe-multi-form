@@ -1,4 +1,9 @@
-import { forwardRef } from 'react'
+import {
+  ForwardedRef,
+  forwardRef,
+  HTMLInputTypeAttribute,
+  InputHTMLAttributes,
+} from 'react'
 import { useControlField, useField, useFormContext } from 'remix-validated-form'
 import { cn } from '~/utilities/cn'
 
@@ -37,15 +42,15 @@ export const ValidatedCheckboxInput = forwardRef<
 )
 
 type ValidatedInput = {
-  ref: React.ForwardedRef<HTMLInputElement>
+  ref: ForwardedRef<HTMLInputElement>
   name: string
   label: string
   value?: string
   placeholder?: string
   className?: string
-  type: React.HTMLInputTypeAttribute
+  type: HTMLInputTypeAttribute
   submitOnChange?: boolean
-} & Pick<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'disabled'>
+} & Pick<InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'disabled'>
 
 function ValidatedInput({
   name,

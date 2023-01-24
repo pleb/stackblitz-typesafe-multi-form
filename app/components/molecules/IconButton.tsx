@@ -1,6 +1,5 @@
-import { ButtonHTMLAttributes, forwardRef, ReactNode } from 'react'
+import { forwardRef } from 'react'
 import { cn } from '~/utilities/cn'
-import { Button, ButtonProps } from '~/components/atoms/Button'
 import {
   GlassButton,
   GlassButtonProps,

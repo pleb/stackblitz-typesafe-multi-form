@@ -1,4 +1,4 @@
-import { forwardRef, HTMLAttributes, ReactNode } from 'react'
+import { forwardRef } from 'react'
 import { cn } from '~/utilities/cn'
 import { Panel, PanelProps } from '~/components/atoms/Panel'
 

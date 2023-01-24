@@ -5,7 +5,7 @@ import {
   ValidatedTextInput,
 } from '~/components/atoms/ValidatedInput'
 import { useFocus } from '~/hooks/useFocus'
-import { Button } from '../atoms/Button'
+import { Button } from '~/components/atoms/Button'
 
 export const UpsertTodo = <
   T extends {
