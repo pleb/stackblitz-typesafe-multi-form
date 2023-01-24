@@ -88,7 +88,7 @@ export default function Index() {
   const loadingContext = useLoadingContext()
 
   return (
-    <div>
+    <div className={'sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg mx-[auto]'}>
       <ValidatedForm validator={validator} method='post' className='grid mb-2'>
         <GlassButton
           type='submit'
@@ -102,7 +102,7 @@ export default function Index() {
         </GlassButton>
       </ValidatedForm>
       <GlassPanel className='relative'>
-        <Title>Simple Todo</Title>
+        <Title aria-label='Simple to-do'>Simple Todo</Title>
         <Loading
           className='absolute right-2 top-5 animate-spin h-5 w-5 mr-3'
           hidden={!loadingContext.isLoading}

@@ -529,6 +529,21 @@ video {
   top: 1.25rem;
 }
 
+.mx-\[auto\] {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.my-4 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.mx-4 {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
 .mb-2 {
   margin-bottom: 0.5rem;
 }
@@ -569,6 +584,30 @@ video {
   width: 100%;
 }
 
+.max-w-xl {
+  max-width: 36rem;
+}
+
+.max-w-xs {
+  max-width: 20rem;
+}
+
+.max-w-\[200px\] {
+  max-width: 200px;
+}
+
+.max-w-screen-sm {
+  max-width: 640px;
+}
+
+.max-w-screen-md {
+  max-width: 768px;
+}
+
+.max-w-screen-lg {
+  max-width: 1024px;
+}
+
 @keyframes spin {
   to {
     transform: rotate(360deg);
@@ -577,6 +616,18 @@ video {
 
 .animate-spin {
   animation: spin 1s linear infinite;
+}
+
+.auto-cols-auto {
+  grid-auto-columns: auto;
+}
+
+.auto-cols-fr {
+  grid-auto-columns: minmax(0, 1fr);
+}
+
+.auto-cols-\[1fr_200px\] {
+  grid-auto-columns: 1fr 200px;
 }
 
 .grid-flow-col {
@@ -648,10 +699,6 @@ video {
 
 .bg-glass {
   background-color: rgba(17, 25, 40, 0.75);
-}
-
-.bg-glass\/20 {
-  background-color: rgb(17 25 40 / 0.2);
 }
 
 .p-2 {
@@ -769,14 +816,22 @@ body {
   background-color: rgb(17 25 40 / 0.2);
 }
 
-.hover\:opacity-5:hover {
-  opacity: 0.05;
+@media (min-width: 640px) {
+  .sm\:max-w-screen-sm {
+    max-width: 640px;
+  }
 }
 
-.hover\:backdrop-saturate-50:hover {
-  --tw-backdrop-saturate: saturate(.5);
-  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
-          backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+@media (min-width: 768px) {
+  .md\:max-w-screen-md {
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg\:max-w-screen-lg {
+    max-width: 1024px;
+  }
 }
 
 .\[\&\:not\(\:disabled\)\]\:hover\:bg-slate-200:hover:not(:disabled) {

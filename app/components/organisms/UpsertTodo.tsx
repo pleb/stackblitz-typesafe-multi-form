@@ -40,11 +40,11 @@ export const UpsertTodo = <
       method='post'
     >
       <ValidatedHiddenInput name='id' value={todo?.id.toString()} />
-      <div className='mt-2 py-3 px-4 grid grid-flow-col gap-2 items-start'>
+      <div className='mt-2 py-3 px-4 grid grid-flow-col auto-cols-[1fr_200px] gap-2 items-start'>
         <ValidatedTextInput
           ref={inputRef}
           className='p-2 border'
-          label='Todo description'
+          label='To-do description'
           placeholder='Todo description'
           name='description'
           value={todo?.description}
