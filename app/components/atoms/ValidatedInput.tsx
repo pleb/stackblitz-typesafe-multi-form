@@ -1,28 +1,43 @@
+import { forwardRef } from 'react'
 import { useControlField, useField, useFormContext } from 'remix-validated-form'
 import { cn } from '~/utilities/cn'
 
-export const ValidatedHiddenInput = (
-  props: Omit<ValidatedInput, 'type' | 'label' | 'placeholder'>,
-) =>
+export const ValidatedHiddenInput = forwardRef<
+  HTMLInputElement,
+  Omit<ValidatedInput, 'type' | 'label' | 'placeholder'>
+>((props, ref) =>
   ValidatedInput({
     ...props,
     label: '',
     type: 'hidden',
-  })
+    ref: ref,
+  }),
+)
 
-export const ValidatedTextInput = (props: Omit<ValidatedInput, 'type'>) =>
+export const ValidatedTextInput = forwardRef<
+  HTMLInputElement,
+  Omit<ValidatedInput, 'type'>
+>((props, ref) =>
   ValidatedInput({
     ...props,
     type: 'text',
-  })
+    ref: ref,
+  }),
+)
 
-export const ValidatedCheckboxInput = (props: Omit<ValidatedInput, 'type'>) =>
+export const ValidatedCheckboxInput = forwardRef<
+  HTMLInputElement,
+  Omit<ValidatedInput, 'type'>
+>((props, ref) =>
   ValidatedInput({
     ...props,
     type: 'checkbox',
-  })
+    ref: ref,
+  }),
+)
 
 type ValidatedInput = {
+  ref: React.ForwardedRef<HTMLInputElement>
   name: string
   label: string
   value?: string
@@ -44,7 +59,7 @@ function ValidatedInput({
   ...props
 }: ValidatedInput) {
   const { error, getInputProps } = useField(name)
-  const { submit, fieldErrors, isValid } = useFormContext()
+  const { submit } = useFormContext()
   const [value, setValue] = useControlField<string | undefined>(name)
   const isCheckboxOrRadio = type === 'checkbox' || type === 'radio'
   const isTextLike = type !== 'button' && !isCheckboxOrRadio

@@ -8,7 +8,8 @@
     "start": "cross-env NODE_ENV=production remix-serve build",
     "dev": "run-p dev:tailwind dev:remix",
     "dev:tailwind": "tailwindcss -w -i ./styles/app.css -o app/styles/app.css",
-    "dev:remix": "cross-env NODE_ENV=development remix dev"
+    "dev:remix": "cross-env NODE_ENV=development remix dev",
+    "ts:check": "tsc --project tsconfig.json"
   },
   "dependencies": {
     "@remix-run/node": "^1.7.2",

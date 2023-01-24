@@ -107,7 +107,7 @@ export default function Index() {
           className='absolute right-2 top-5 animate-spin h-5 w-5 mr-3'
           hidden={!loadingContext.isLoading}
         />
-        <Panel className='mt-2 px-4'>
+        <Panel className='mt-2 px-4' aria-live='polite'>
           {todos.map((td, i) => (
             <TodoItem
               key={i}

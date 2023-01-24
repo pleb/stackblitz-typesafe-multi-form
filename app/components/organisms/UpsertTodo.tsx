@@ -1,8 +1,10 @@
+import { useEffect } from 'react'
 import { ValidatedForm, Validator } from 'remix-validated-form'
 import {
   ValidatedHiddenInput,
   ValidatedTextInput,
 } from '~/components/atoms/ValidatedInput'
+import { useFocus } from '~/hooks/useFocus'
 import { Button } from '../atoms/Button'
 
 export const UpsertTodo = <
@@ -26,6 +28,10 @@ export const UpsertTodo = <
   onSubmit: () => void
   disabled?: boolean
 }) => {
+  const [inputRef, setInputFocus] = useFocus<HTMLInputElement>()
+  useEffect(() => {
+    setInputFocus()
+  }, [todo])
   return (
     <ValidatedForm
       validator={validator}
@@ -36,6 +42,7 @@ export const UpsertTodo = <
       <ValidatedHiddenInput name='id' value={todo?.id.toString()} />
       <div className='mt-2 py-3 px-4 grid grid-flow-col gap-2 items-start'>
         <ValidatedTextInput
+          ref={inputRef}
           className='p-2 border'
           label='Todo description'
           placeholder='Todo description'

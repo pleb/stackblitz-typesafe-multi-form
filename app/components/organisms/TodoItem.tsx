@@ -45,7 +45,7 @@ export const TodoItem = <
         border='b'
         className={cn('p-3', 'hover:bg-glass/20', 'grid grid-flow-col')}
       >
-        <div>{todo.description}</div>
+        <div aria-details='Todo description'>{todo.description}</div>
         {!disableActions && (
           <div className='w-30 justify-self-end grid gap-2 grid-flow-col content-center'>
             <IconButton
@@ -54,20 +54,22 @@ export const TodoItem = <
               name='_action'
               value={dispatchActions.delete}
               disabled={disabled}
+              aria-description='Delete the todo entry'
             >
-              <Delete />
+              <Delete aria-hidden={true} />
             </IconButton>
             <IconButton
               color='Green'
               onClick={() => onEdit(todo)}
               disabled={disabled}
+              aria-description='Edit the todo entry'
             >
-              <Edit />
+              <Edit aria-hidden={true} />
             </IconButton>
             <ValidatedCheckboxInput
               className='ml-2'
               name='_action'
-              label='Complete todo'
+              label='Complete the todo entry'
               value={dispatchActions.complete}
               submitOnChange={true}
               disabled={disabled}
