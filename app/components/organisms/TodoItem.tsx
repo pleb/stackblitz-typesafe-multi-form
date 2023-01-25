@@ -38,7 +38,6 @@ export const TodoItem = <
       validator={validator}
       name={`todo-row-${todo.id}`}
       method='post'
-      resetAfterSubmit={true}
     >
       <ValidatedHiddenInput name='id' value={todo.id.toString()} />
       <Panel

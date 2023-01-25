@@ -114,7 +114,7 @@ export default function Index() {
         <Panel className='mt-2 px-4' aria-live='polite'>
           {todos.map((td, i) => (
             <TodoItem
-              key={i}
+              key={`todo-${td.id}`}
               todo={td}
               onEdit={setEdit}
               validator={validator}
