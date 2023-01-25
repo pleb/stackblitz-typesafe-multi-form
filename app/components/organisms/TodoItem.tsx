@@ -68,7 +68,7 @@ export const TodoItem = <
               color='Green'
               onClick={() => onEdit(todo)}
               disabled={disabled}
-              aria-description='Edit to-do entry'
+              aria-label='Edit to-do entry'
             >
               <Edit aria-hidden={true} />
             </IconButton>
