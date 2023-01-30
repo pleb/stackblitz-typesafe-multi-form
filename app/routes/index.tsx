@@ -2,54 +2,39 @@ import { DataFunctionArgs } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 import { db } from '~/utilities/database'
 import { z } from 'zod'
-import { zfd } from 'zod-form-data'
 import { withZod } from '@remix-validated-form/with-zod'
-import { dispatch, DispatchActionsLookup } from '~/utilities/dispatcher'
+import { dispatch } from '~/utilities/dispatcher'
 import { ValidatedForm } from 'remix-validated-form'
 import { useCallback, useState } from 'react'
 import { randomDelayBetween } from '~/utilities/delay'
 import { GlassButton } from '~/components/molecules/GlassButton'
 import { Title } from '~/components/atoms/Title'
 import { GlassPanel } from '~/components/molecules/GlassPanel'
-import { TodoItem } from '~/components/organisms/TodoItem'
+import {
+  completeTodoItemValidationSchema,
+  deleteTodoItemValidationSchema,
+  TodoItem,
+} from '~/components/organisms/TodoItem'
 import { Panel } from '~/components/atoms/Panel'
-import { UpsertTodo } from '~/components/organisms/UpsertTodo'
+import {
+  UpsertTodo,
+  upsertTodoValidationSchema,
+} from '~/components/organisms/UpsertTodo'
 import { useLoadingContext } from '~/contexts/loadingContext'
 import Loading from 'icon/LoadingIndicator'
+import { useValidatorFields } from '~/hooks/useFields'
+import { useDispatchActions } from '~/hooks/useDispatchActions'
 
 const validator = withZod(
   z.discriminatedUnion('_action', [
     z.object({
       _action: z.literal('reset'),
     }),
-    zfd
-      .formData({
-        _action: z.literal('upsert'),
-        description: zfd.text(z.string().min(2).max(50)),
-        id: zfd.numeric(z.number().optional()),
-      })
-      .innerType(),
-    zfd
-      .formData({
-        _action: z.literal('delete'),
-        id: zfd.numeric(),
-      })
-      .innerType(),
-    zfd
-      .formData({
-        _action: z.literal('complete'),
-        id: zfd.numeric(),
-      })
-      .innerType(),
+    upsertTodoValidationSchema,
+    deleteTodoItemValidationSchema,
+    completeTodoItemValidationSchema,
   ]),
 )
-
-const dispatchActions: DispatchActionsLookup<typeof validator> = {
-  reset: 'reset',
-  upsert: 'upsert',
-  delete: 'delete',
-  complete: 'complete',
-}
 
 export const loader = async () => {
   return db.load().filter(i => !i.completed && !i.deleted)
@@ -86,6 +71,8 @@ export default function Index() {
   const [edit, setEdit] = useState<Todo>()
   const clearEdit = useCallback(() => setEdit(undefined), [setEdit])
   const loadingContext = useLoadingContext()
+  const fields = useValidatorFields(validator)
+  const dispatchActions = useDispatchActions(validator)
 
   return (
     <div
@@ -96,7 +83,7 @@ export default function Index() {
       <ValidatedForm validator={validator} method='post' className='grid mb-2'>
         <GlassButton
           type='submit'
-          name='_action'
+          name={fields._action}
           value={dispatchActions.reset}
           className='place-self-end py-1 px-4'
           onClick={clearEdit}
@@ -117,17 +104,13 @@ export default function Index() {
               key={`todo-${td.id}`}
               todo={td}
               onEdit={setEdit}
-              validator={validator}
               disableActions={Boolean(edit)}
-              dispatchActions={dispatchActions}
               disabled={loadingContext.isLoading}
             />
           ))}
         </Panel>
         <UpsertTodo
           todo={edit}
-          validator={validator}
-          dispatchActions={dispatchActions}
           onSubmit={() => {
             setTimeout(clearEdit)
           }}

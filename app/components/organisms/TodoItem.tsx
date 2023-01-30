@@ -1,4 +1,4 @@
-import { ValidatedForm, Validator } from 'remix-validated-form'
+import { ValidatedForm } from 'remix-validated-form'
 import { Panel } from '~/components/atoms/Panel'
 import {
   ValidatedCheckboxInput,
@@ -8,38 +8,54 @@ import { IconButton } from '~/components/molecules/IconButton'
 import Delete from 'icon/Delete'
 import Edit from 'icon/Edit'
 import { cn } from '~/utilities/cn'
+import { useValidatorFields } from '~/hooks/useFields'
+import { withZod } from '@remix-validated-form/with-zod'
+import { z } from 'zod'
+import { zfd } from 'zod-form-data'
+import { useDispatchActions } from '~/hooks/useDispatchActions'
+
+export const deleteTodoItemValidationSchema = zfd
+  .formData({
+    _action: z.literal('delete'),
+    id: zfd.numeric(),
+  })
+  .innerType()
+export const completeTodoItemValidationSchema = zfd
+  .formData({
+    _action: z.literal('complete'),
+    id: zfd.numeric(),
+  })
+  .innerType()
+
+const todoItemValidator = withZod(
+  z.discriminatedUnion('_action', [
+    deleteTodoItemValidationSchema,
+    completeTodoItemValidationSchema,
+  ]),
+)
 
 export const TodoItem = <
   T extends {
     description: string
     id: number | string
   },
-  TValidator extends Validator<unknown>,
 >({
   todo,
   onEdit,
   disableActions,
-  dispatchActions,
-  validator,
   disabled,
 }: {
   todo: T
   onEdit: (todo: T) => void
   disableActions: boolean
-  dispatchActions: {
-    delete: string
-    complete: string
-  }
-  validator: TValidator
   disabled?: boolean
 }) => {
+  const fields = useValidatorFields(todoItemValidator)
+  const actions = useDispatchActions(todoItemValidator)
+
   return (
-    <ValidatedForm
-      validator={validator}
-      name={`todo-row-${todo.id}`}
-      method='post'
-    >
-      <ValidatedHiddenInput name='id' value={todo.id.toString()} />
+    <ValidatedForm validator={todoItemValidator} method='post'>
+      <ValidatedHiddenInput name={fields.id} value={todo.id.toString()} />
       <Panel
         border='b'
         className={cn('p-3', 'hover:bg-glass/20', 'grid grid-flow-col')}
@@ -56,8 +72,8 @@ export const TodoItem = <
               id={`delete-${todo.id}`}
               color='Red'
               type='submit'
-              name='_action'
-              value={dispatchActions.delete}
+              name={fields._action}
+              value={actions.delete}
               disabled={disabled}
               aria-label='Delete to-do entry'
             >
@@ -73,9 +89,9 @@ export const TodoItem = <
             </IconButton>
             <ValidatedCheckboxInput
               className='ml-2'
-              name='_action'
+              name={fields._action}
               label='Complete to-do entry'
-              value={dispatchActions.complete}
+              value={actions.complete}
               submitOnChange={true}
               disabled={disabled}
             />

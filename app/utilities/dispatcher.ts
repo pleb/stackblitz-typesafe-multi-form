@@ -1,14 +1,11 @@
 import type { DataFunctionArgs } from '@remix-run/node'
 import type { SuccessResult, Validator } from 'remix-validated-form'
 import { validationError } from 'remix-validated-form'
-
-type CoerceIntellisense<T> = T extends infer O
-  ? { [K in keyof O]: O[K] }
-  : never
-
-type TypeWithGeneric<T> = T[]
-
-type ExtractGeneric<Type> = Type extends TypeWithGeneric<infer X> ? X : never
+import {
+  CoerceIntellisense,
+  ExtractGeneric,
+  TypeWithGeneric,
+} from '~/utilities/type-helpers'
 
 type ZodActionType = Validator<{ _action: string }>
 
@@ -28,7 +25,7 @@ export type DispatchActionsLookup<T extends ZodActionType> = {
 }
 
 /**
- * Is a small action dispatcher which can be use for multi-forms (single button forms) in a nextjs app.
+ * Is a small action dispatcher which can be use for multi-forms (single button forms) in a remix app.
  *
  * @example <caption>Single action</caption>
  *
