@@ -11,21 +11,16 @@ import { cn } from '~/utilities/cn'
 import { useValidatorFields } from '~/hooks/useFields'
 import { withZod } from '@remix-validated-form/with-zod'
 import { z } from 'zod'
-import { zfd } from 'zod-form-data'
 import { useDispatchActions } from '~/hooks/useDispatchActions'
 
-export const deleteTodoItemValidationSchema = zfd
-  .formData({
-    _action: z.literal('delete'),
-    id: zfd.numeric(),
-  })
-  .innerType()
-export const completeTodoItemValidationSchema = zfd
-  .formData({
-    _action: z.literal('complete'),
-    id: zfd.numeric(),
-  })
-  .innerType()
+export const deleteTodoItemValidationSchema = z.object({
+  _action: z.literal('delete'),
+  id: z.number(),
+})
+export const completeTodoItemValidationSchema = z.object({
+  _action: z.literal('complete'),
+  id: z.number(),
+})
 
 const todoItemValidator = withZod(
   z.discriminatedUnion('_action', [

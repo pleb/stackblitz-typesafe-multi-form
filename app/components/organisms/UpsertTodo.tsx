@@ -10,15 +10,12 @@ import { useValidatorFields } from '~/hooks/useFields'
 import { useDispatchActions } from '~/hooks/useDispatchActions'
 import { withZod } from '@remix-validated-form/with-zod'
 import { z } from 'zod'
-import { zfd } from 'zod-form-data'
 
-export const upsertTodoValidationSchema = zfd
-  .formData({
-    _action: z.literal('upsert'),
-    description: zfd.text(z.string().min(2).max(50)),
-    id: zfd.numeric(z.number().optional()),
-  })
-  .innerType()
+export const upsertTodoValidationSchema = z.object({
+  _action: z.literal('upsert'),
+  description: z.string().min(2).max(50),
+  id: z.number().optional(),
+})
 
 const upsertTodoValidator = withZod(upsertTodoValidationSchema)
 

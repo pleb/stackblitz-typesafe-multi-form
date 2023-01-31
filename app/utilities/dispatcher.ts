@@ -32,8 +32,8 @@ export type DispatchActionsLookup<T extends ZodActionType> = {
  * const validatorS = withZod(
  *   z.object({
  *     _action: z.literal('single-action'),
- *     propA: zfd.text(),
- *     propB: zfd.numeric(),
+ *     propA: z.string(),
+ *     propB: z.number(),
  *   })
  * )
  *
@@ -52,13 +52,13 @@ export type DispatchActionsLookup<T extends ZodActionType> = {
  *   z.discriminatedUnion('_action', [
  *     z.object({
  *       _action: z.literal('action-one'),
- *       propA: zfd.text(),
- *       propB: zfd.numeric(),
+ *       propA: z.string(),
+ *       propB: z.number(),
  *     }),
  *     z.object({
  *       _action: z.literal('action-two'),
- *       propC: zfd.text(),
- *       propD: zfd.numeric(),
+ *       propC: z.string(),
+ *       propD: z.number(),
  *     })
  *   ]),
  * )
