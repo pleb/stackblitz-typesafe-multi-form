@@ -12,14 +12,15 @@ import { useValidatorFields } from '~/hooks/useFields'
 import { withZod } from '@remix-validated-form/with-zod'
 import { z } from 'zod'
 import { useDispatchActions } from '~/hooks/useDispatchActions'
+import { zfd } from 'zod-form-data'
 
 export const deleteTodoItemValidationSchema = z.object({
   _action: z.literal('delete'),
-  id: z.number(),
+  id: zfd.numeric(),
 })
 export const completeTodoItemValidationSchema = z.object({
   _action: z.literal('complete'),
-  id: z.number(),
+  id: zfd.numeric(),
 })
 
 const todoItemValidator = withZod(
