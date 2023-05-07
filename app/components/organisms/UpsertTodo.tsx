@@ -6,7 +6,7 @@ import {
 } from '~/components/atoms/ValidatedInput'
 import { useFocus } from '~/hooks/useFocus'
 import { Button } from '~/components/atoms/Button'
-import { useValidatorFields } from '~/hooks/useFields'
+import { useValidatorFields } from '~/hooks/useValidatorFields'
 import { useDispatchActions } from '~/hooks/useDispatchActions'
 import { withZod } from '@remix-validated-form/with-zod'
 import { z } from 'zod'

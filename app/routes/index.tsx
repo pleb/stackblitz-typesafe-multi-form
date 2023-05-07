@@ -22,7 +22,7 @@ import {
 } from '~/components/organisms/UpsertTodo'
 import { useLoadingContext } from '~/contexts/loadingContext'
 import Loading from 'icon/LoadingIndicator'
-import { useValidatorFields } from '~/hooks/useFields'
+import { useValidatorFields } from '~/hooks/useValidatorFields'
 import { useDispatchActions } from '~/hooks/useDispatchActions'
 
 const validator = withZod(

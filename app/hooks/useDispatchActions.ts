@@ -1,9 +1,9 @@
 import { Validator } from 'remix-validated-form'
 import { DispatchActionsLookup } from '~/utilities/dispatcher'
-import { useFields } from '~/hooks/useFields'
+import { createObjectFieldsProxy } from '~/utilities/object-field-proxy'
 
 export function useDispatchActions<T extends Validator<any>>(
   _validator: T,
 ): DispatchActionsLookup<T> {
-  return useFields<DispatchActionsLookup<T>>(_validator)
+  return createObjectFieldsProxy<T>()
 }
